@@ -1,6 +1,10 @@
 ---
+import { Icon } from 'astro-icon/components'
+
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.astro"
+import Button from "../components/Button.astro";
+
+const buttons = [{name:"Aceptar"}, {name:"enviar"}, {name:"cancelar"}, {name:"otro"}];
 ---
 
 <Layout title="Contacta con nosotros">
@@ -17,4 +21,15 @@ import Button from "../components/Button.astro"
   <Button>
     
   </Button>
+
+  <Icon class='text-green-800' name="beaker" size="56" />
+  <Icon name="mdi:brightness-5" size="56" />
+  <Icon name="svg-spinners:wind-toy" size="56" />
+
+  {
+    buttons.map((text) => {
+      return <Button><span slot="text">{text.name}</span></Button>
+    })
+  }
+
 </Layout>
