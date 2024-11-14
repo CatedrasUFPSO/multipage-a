@@ -5,4 +5,82 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Bienvenidos a mi proyecto">
 	Hola mundo
 	<div class="text-red-500">Cruel</div>
+
+	<div id="btn" class="bg-blue-200 p-3 inline-block">
+		Presióname!
+	</div>
+
+  <div class="embla">
+    <div class="embla__viewport">
+      <div class="embla__container">
+        <div class="embla__slide bg-blue-300">
+          <img src="/img/p1.jpeg" />
+        </div>
+        <div class="embla__slide bg-green-500">
+          <img src="/img/p2.jpg" />
+        </div>
+        <div class="embla__slide bg-red-500">
+          <img src="/img/p3.webp" />
+        </div>
+      </div>
+    </div>
+    <button class="embla__prev">Prev</button>
+    <button class="embla__next">Next</button>
+  </div>
 </Layout>
+
+<style>
+  .embla {
+  overflow: hidden;
+  }
+  .embla__container {
+    display: flex;
+  }
+  .embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+</style>
+
+<script>
+  import JSConfetti from 'js-confetti'
+  import EmblaCarousel from 'embla-carousel'
+
+  const jsConfetti = new JSConfetti()
+
+  const rootNode = document.querySelector('.embla')
+  const viewportNode = rootNode.querySelector('.embla__viewport')
+  const prevButtonNode = rootNode.querySelector('.embla__prev')
+  const nextButtonNode = rootNode.querySelector('.embla__next')
+  const options = { loop: false }
+  const embla = EmblaCarousel(viewportNode, options)  
+  prevButtonNode.addEventListener('click', embla.scrollPrev, false)
+  nextButtonNode.addEventListener('click', embla.scrollNext, false)
+
+  const btn = document.getElementById("btn")
+
+  btn.addEventListener("click", function (e) {
+    const elm = e.target
+    // elm.classList.remove("bg-blue-200")
+    // elm.classList.add("bg-red-500")
+    elm.classList.replace("bg-blue-200", "bg-red-500")
+
+    elm.innerText = "Ouch!"
+
+    const myDiv = document.createElement("div")
+    myDiv.innerText = "Soy un div creado con JS"
+    myDiv.classList.add("bg-green-500","text-white")
+
+    myDiv.addEventListener("click", (e) => {
+      e.target.remove()
+      console.log("Harakiri", e.target)
+    })
+
+    document.body.appendChild(myDiv)
+
+    //console.log("Acá estoy en la consola", e.target.classList)
+
+    jsConfetti.addConfetti()
+  })
+
+</script>
